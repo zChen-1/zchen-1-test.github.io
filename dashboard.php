@@ -2,7 +2,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
-  header('Location: index.php');
+  header('Location: login.php');
   exit;
 }
 ?>
@@ -13,7 +13,8 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <h1>Welcome to your dashboard, <?php echo $_SESSION['email']; ?></h1>
+    <h1>Welcome to your dashboard, <?php echo $_SESSION['name']; ?></h1>
+    <p>You are logged in as <?php echo $_SESSION['email']; ?></p>
     <a href="logout.php">Logout</a>
   </body>
 </html>
