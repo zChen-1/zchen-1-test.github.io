@@ -1,0 +1,2 @@
+alice:$2y$10$DjZVw2JCOzKNuV7gEL4f4uVey5q5p9uV7HyM5ugKu1.vzbQH50O6:alice@example.com
+bob:$2y$10$Y47zfc7VcF1ZuS7STFhz1efkHuM0bIyGVx/lPfblzLR0X9I.C/0C:bob@example.com
