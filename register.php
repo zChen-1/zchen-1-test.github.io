@@ -3,6 +3,14 @@
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // Connect to the database
   $conn = new SQLite3('users.db');
+  
+  $sql = 'CREATE TABLE users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL UNIQUE,
+  password TEXT NOT NULL
+)';
+$result = $conn->exec($sql);
 
   // Get user input
   $name = $_POST['name'];
