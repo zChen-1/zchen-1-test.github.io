@@ -13,8 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
   // Insert the user data into the "users" table
-  $sql = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$hashed_password')";
-  $result = $conn->query($sql);
+  $stmt = $conn->prepare('INSERT INTO users (name, email, password) VALUES (:name, :email, :password)');
+  $stmt->bindValue(':name', $name, SQLITE3_TEXT);
+  $stmt->bindValue(':email', $email, SQLITE3_TEXT);
+  $stmt->bindValue(':password', $hashed_password, SQLITE3_TEXT);
+  $result = $stmt->execute();
 
   // Close the database connection
   $conn->close();
