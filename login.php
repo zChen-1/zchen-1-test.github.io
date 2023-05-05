@@ -1,32 +1,18 @@
-// login.php
 <?php
 session_start();
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $email = $_POST['email'];
-  $password = $_POST['password'];
 
-  // Connect to the database
-  $conn = new SQLite3('users.db');
+$username = $_POST['username'];
+$password = $_POST['password'];
 
-  // Check if user exists in database
-  $stmt = $conn->prepare('SELECT id, name, email, password FROM users WHERE email = :email');
-  $stmt->bindValue(':email', $email, SQLITE3_TEXT);
-  $result = $stmt->execute();
-  $row = $result->fetchArray(SQLITE3_ASSOC);
-
-  if ($row && password_verify($password, $row['password'])) {
-    // If successful, set session variables and redirect to dashboard
-    $_SESSION['user_id'] = $row['id'];
-    $_SESSION['name'] = $row['name'];
-    $_SESSION['email'] = $row['email'];
-    header('Location: dashboard.php');
+$users = file('users.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+foreach ($users as $user) {
+  list($u, $p) = explode(':', $user);
+  if ($username == $u && password_verify($password, $p)) {
+    $_SESSION['username'] = $username;
+    header('Location: profile.php');
     exit;
-  } else {
-    // If not, return error message
-    $error = 'Invalid email or password.';
   }
-
-  // Close the database connection
-  $conn->close();
 }
+
+echo 'Invalid username or password.';
 ?>
