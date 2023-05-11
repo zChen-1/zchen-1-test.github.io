@@ -1,58 +1,21 @@
-// script.js
-const loginForm = document.getElementById('login-form');
-const registerForm = document.getElementById('register-form');
-const logoutButton = document.getElementById('logout-button');
+function getVehicleInfo() {
+  var make = document.getElementById('make').value;
+  var model = document.getElementById('model').value;
+  var year = document.getElementById('year').value;
 
-loginForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const formData = new FormData(loginForm);
-  fetch(loginForm.action, {
-    method: loginForm.method,
-    body: formData
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      if (data.success) {
-        window.location.href = 'dashboard.html';
-      } else {
-        alert(data.message);
-      }
-    })
-    .catch(error => console.error(error));
-});
-
-registerForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const formData = new FormData(registerForm);
-  fetch(registerForm.action, {
-    method: registerForm.method,
-    body: formData
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      if (data.success) {
-        alert('Registration successful. Please login to continue.');
-      } else {
-        alert(data.message);
-      }
-    })
-    .catch(error => console.error(error));
-});
-
-if (logoutButton) {
-  logoutButton.addEventListener('click', () => {
-    fetch('logout.php')
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        if (data.success) {
-          window.location.href = 'index.html';
-        } else {
-          alert(data.message);
-        }
-      })
-      .catch(error => console.error(error));
+  // Assuming you have the vehicle data stored in a variable named 'vehicles'
+  var vehicle = vehicles.find(function(item) {
+    return item.Make === make && item.Model === model && item.Year === parseInt(year);
   });
+
+  if (vehicle) {
+    var resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = '<h2>Vehicle Information:</h2>' +
+                          '<p>Make: ' + vehicle.Make + '</p>' +
+                          '<p>Model: ' + vehicle.Model + '</p>' +
+                          '<p>Year: ' + vehicle.Year + '</p>' +
+                          '<p>CombMPG: ' + vehicle.CombMPG + '</p>';
+  } else {
+    alert('Vehicle information not found!');
+  }
 }
