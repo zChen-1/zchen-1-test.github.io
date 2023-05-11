@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Map View</title>
+</head>
+<body>
+  <h1>Map View</h1>
+  <!-- Your map code goes here -->
+  <div id="vehicleInfo"></div>
+  <script>
+    // Retrieve the vehicle information from localStorage
+    var vehicleInfo = localStorage.getItem('vehicleInfo');
+
+    if (vehicleInfo) {
+      var vehicleDiv = document.getElementById('vehicleInfo');
+      vehicleDiv.innerHTML = '<h2>Vehicle Information:</h2>' + vehicleInfo;
+    }
+  </script>
+</body>
+</html>
